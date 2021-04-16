@@ -21,12 +21,12 @@ func (app *application) showMovieHandler(w http.ResponseWriter, r *http.Request)
 	}
 
 	movie := data.Movie{
-		ID: id,
+		ID:        id,
 		CreatedAt: time.Now(),
-		Title: "Casablanca",
-		Runtime: 102,
-		Genres: []string{"drama", "romance", "war"},
-		Version: 1,
+		Title:     "Casablanca",
+		Runtime:   102,
+		Genres:    []string{"drama", "romance", "war"},
+		Version:   1,
 	}
 
 	err = app.writeJSON(w, http.StatusOK, envelope{"movie": movie}, nil)
