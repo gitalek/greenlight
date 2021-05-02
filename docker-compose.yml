@@ -1,0 +1,15 @@
+---
+version: '3'
+services:
+  pgdb:
+    image: "postgres:13.2"
+    container_name: "greenlight"
+    environment:
+      - POSTGRES_DB=greenlight
+      - POSTGRES_USER=postgres
+      - POSTGRES_PASSWORD=secret
+    ports:
+      - "54322:5432"
+    env_file: .env
+    volumes:
+      - "${HOST_POSTGRES_DATA_PATH}:/var/lib/postgresql/data"
