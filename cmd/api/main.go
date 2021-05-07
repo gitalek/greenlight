@@ -5,12 +5,13 @@ import (
 	"database/sql"
 	"flag"
 	"fmt"
-	_ "github.com/lib/pq"
-	"greenlight/internal/data"
-	"greenlight/internal/jsonlog"
 	"net/http"
 	"os"
 	"time"
+
+	_ "github.com/lib/pq"
+	"greenlight/internal/data"
+	"greenlight/internal/jsonlog"
 )
 
 const version = "1.3.0"
