@@ -66,7 +66,9 @@ func main() {
 	}
 
 	err = app.serve()
-	logger.PrintFatal(err, nil)
+	if err != nil {
+		logger.PrintFatal(err, nil)
+	}
 }
 
 func OpenDB(cfg config) (*sql.DB, error) {
