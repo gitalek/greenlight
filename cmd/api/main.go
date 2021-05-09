@@ -4,7 +4,6 @@ import (
 	"context"
 	"database/sql"
 	"flag"
-	"greenlight/internal/mailer"
 	"os"
 	"sync"
 	"time"
@@ -12,6 +11,7 @@ import (
 	_ "github.com/lib/pq"
 	"greenlight/internal/data"
 	"greenlight/internal/jsonlog"
+	"greenlight/internal/mailer"
 )
 
 const version = "1.3.0"
