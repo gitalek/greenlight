@@ -9,7 +9,7 @@ import (
 )
 
 //go:embed "templates"
-var temlateFS embed.FS
+var templateFS embed.FS
 
 type Mailer struct {
 	dialer *mail.Dialer
@@ -28,7 +28,7 @@ func New(host string, port int, username, password, sender string) Mailer {
 }
 
 func (m Mailer) Send(recipient, templateFile string, data interface{}) error {
-	tmpl, err := template.New("email").ParseFS(temlateFS, "templates/"+templateFile)
+	tmpl, err := template.New("email").ParseFS(templateFS, "templates/"+templateFile)
 	if err != nil {
 		return err
 	}
@@ -58,9 +58,11 @@ func (m Mailer) Send(recipient, templateFile string, data interface{}) error {
 	msg.SetBody("text/plain", plainBody.String())
 	msg.AddAlternative("text/html", htmlBody.String())
 
-	err = m.dialer.DialAndSend(msg)
-	if err != nil {
-		return err
+	for i:= 1; i <= 3; i++ {
+		err = m.dialer.DialAndSend(msg)
+		if nil == err {
+			return nil
+		}
 	}
-	return nil
+	return err
 }
