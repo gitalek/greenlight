@@ -82,7 +82,7 @@ func (app *application) readJSON(w http.ResponseWriter, r *http.Request, dst int
 		}
 	}
 
-	err = dec.Decode(&struct {}{})
+	err = dec.Decode(&struct{}{})
 	if err != io.EOF {
 		return errors.New("body must only contain a single JSON value")
 	}
@@ -117,4 +117,16 @@ func (app *application) readInt(qs url.Values, key string, defaultValue int, v *
 		return defaultValue
 	}
 	return i
+}
+
+func (app *application) background(fn func()) {
+	go func() {
+		defer func() {
+			if err := recover(); err != nil {
+				app.logger.PrintError(fmt.Errorf("%s", err), nil)
+			}
+		}()
+
+		fn()
+	}()
 }
