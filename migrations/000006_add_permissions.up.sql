@@ -1,5 +1,5 @@
 CREATE TABLE IF NOT EXISTS permissions (
-    db bigserial PRIMARY KEY,
+    id bigserial PRIMARY KEY,
     code text NOT NULL
 );
 
