@@ -2,6 +2,7 @@ package main
 
 import (
 	"errors"
+	"expvar"
 	"fmt"
 	"net"
 	"net/http"
@@ -12,7 +13,6 @@ import (
 	"golang.org/x/time/rate"
 	"greenlight/internal/data"
 	"greenlight/internal/validator"
-	"expvar"
 )
 
 func (app *application) recoverPanic(next http.Handler) http.Handler {
@@ -207,7 +207,7 @@ func (app *application) metrics(next http.Handler) http.Handler {
 		totalRequestsReceived.Add(1)
 		next.ServeHTTP(w, r)
 		totalResponsesSent.Add(1)
-		duration := time.Now().Sub(start).Microseconds()
+		duration := time.Since(start).Microseconds()
 		totalProcessingTimeMicrosecnds.Add(duration)
 	})
 }
