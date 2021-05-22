@@ -11,13 +11,17 @@ import (
 	"sync"
 	"time"
 
+	"fmt"
 	_ "github.com/lib/pq"
 	"greenlight/internal/data"
 	"greenlight/internal/jsonlog"
 	"greenlight/internal/mailer"
 )
 
-const version = "1.3.0"
+var (
+	version   string
+	buildTime string
+)
 
 type config struct {
 	port int
@@ -40,7 +44,7 @@ type config struct {
 		password string
 		sender   string
 	}
-	cors struct{
+	cors struct {
 		trustedOrigins []string
 	}
 }
@@ -74,7 +78,14 @@ func main() {
 		cfg.cors.trustedOrigins = strings.Fields(val)
 		return nil
 	})
+	displayVersion := flag.Bool("version", false, "Display version exit")
 	flag.Parse()
+
+	if *displayVersion {
+		fmt.Printf("Version:\t%s\n", version)
+		fmt.Printf("Build time:\t%s\n", buildTime)
+		os.Exit(0)
+	}
 
 	logger := jsonlog.New(os.Stdout, jsonlog.LevelInfo)
 
