@@ -11,10 +11,10 @@ import (
 	"time"
 
 	"github.com/felixge/httpsnoop"
+	"github.com/tomasen/realip"
 	"golang.org/x/time/rate"
 	"greenlight/internal/data"
 	"greenlight/internal/validator"
-	"github.com/tomasen/realip"
 )
 
 func (app *application) recoverPanic(next http.Handler) http.Handler {
